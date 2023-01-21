@@ -1,0 +1,88 @@
+const products = [
+  {
+    id: 1,
+    title: "Simple Cotton Gray T-shirt",
+    category: "Men's clothing",
+    price: "$19.00",
+    image: "img/shop/catalog/01.jpg",
+  },
+  {
+    id: 2,
+    title: "Wireless Headphones",
+    category: "Electronics",
+    price: "$165.00",
+    image: "img/shop/catalog/02.jpg",
+  },
+  {
+    id: 3,
+    title: "Military Cotton Cap",
+    category: "Accessories",
+    price: "$28.00",
+    image: "img/shop/catalog/03.jpg",
+  },
+  {
+    id: 4,
+    title: "Women Colorblock Sneakers",
+    category: "Women's shoes",
+    price: "$154.00",
+    image: "img/shop/catalog/04.jpg",
+  },
+  {
+    id: 5,
+    title: "360 Degrees Camera",
+    category: "Electronics",
+    price: "$120.40",
+    image: "img/shop/catalog/05.jpg",
+  },
+  {
+    id: 6,
+    title: "3-Color Sun Stash Hat",
+    category: "Accessories",
+    price: "$25.99",
+    image: "img/shop/catalog/06.jpg",
+  },
+  {
+    id: 7,
+    title: "Vintage Travel Backpack",
+    category: "Backpacks",
+    price: "$82.00",
+    image: "img/shop/catalog/07.jpg",
+  },
+  {
+    id: 8,
+    title: "Speaker with Voice Control",
+    category: "Electronics",
+    price: "$49.99",
+    image: "img/shop/catalog/08.jpg",
+  },
+  {
+    id: 9,
+    title: "Women Colorblock Sneakers",
+    category: "Women's shoes",
+    price: "$154.00",
+    image: "img/shop/catalog/09.jpg",
+  },
+  {
+    id: 10,
+    title: "Polarized Sunglasses",
+    category: "Accessories",
+    price: "Out of stock",
+    image: "img/shop/catalog/10.jpg",
+  },
+  {
+    id: 11,
+    title: "Sport Running Shoes",
+    category: "Men's shoes",
+    price: "$127.00",
+    image: "img/shop/catalog/11.jpg",
+  },
+  {
+    id: 12,
+    title: "Smart Watch Series 5",
+    category: "Electronics",
+    price: "$349.99",
+    image: "img/shop/catalog/12.jpg",
+  },
+];
+
+export default products;
