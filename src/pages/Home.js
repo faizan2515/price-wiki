@@ -13,8 +13,8 @@ function Home() {
   const [darazLoading, setDarazLoading] = useState(false);
 
   useEffect(() => {
-    handleAmazonPagination("http://pricing.code7labs.co.uk/api/amazon/all");
-    handleDarazPagination("http://pricing.code7labs.co.uk/api/daraz/all");
+    handleAmazonPagination("https://pricing.code7labs.co.uk/api/amazon/all");
+    handleDarazPagination("https://pricing.code7labs.co.uk/api/daraz/all");
   }, []);
 
   const handleAmazonPagination = async (url) => {
