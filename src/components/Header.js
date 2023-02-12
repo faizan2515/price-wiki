@@ -22,19 +22,19 @@ function Header() {
               to="/"
               className="navbar-brand flex-shrink-0 order-lg-1 mx-auto ms-lg-0 pe-lg-2 me-lg-4"
             >
-              <p className="m-0 text-primary">Ecommerce</p>
-              {/* <img
+              {/* <p className="m-0 text-primary">Price Wiki</p> */}
+              <img
                 className="d-none d-lg-block"
-                src="img/logo/logo .png"
+                src="img/logo/logo.jpeg"
                 alt="logo"
                 width="90"
               />
               <img
                 className="d-lg-none"
-                src="img/logo/logo .png"
+                src="img/logo/logo.jpeg"
                 alt="logo"
                 width="80"
-              /> */}
+              />
             </NavLink>
             <div
               className="offcanvas offcanvas-collapse order-lg-2"
@@ -49,7 +49,7 @@ function Header() {
                   aria-label="Close"
                 ></button>
               </div>
-              <div className="offcanvas-body justify-content-center">
+              <div className="offcanvas-body justify-content-end">
                 <ul className="navbar-nav">
                   <li className="nav-item">
                     <NavLink
@@ -61,7 +61,7 @@ function Header() {
                       Home
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <NavLink
                       to="shop"
                       className={({ isActive }) =>
@@ -70,7 +70,7 @@ function Header() {
                     >
                       Shop
                     </NavLink>
-                  </li>
+                  </li> */}
                   <li className="nav-item">
                     <NavLink
                       to="about-us"

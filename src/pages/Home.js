@@ -1,123 +1,72 @@
-import featuredProducts from "../data/featuredProducts";
-import products from "../data/products";
 import brands from "../data/brands";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Products from "../components/Products";
 
 function Home() {
+  const [amazonProducts, setAmazonProducts] = useState([]);
+  const [amazonPagination, setAmazonPagination] = useState([]);
+  const [amazonLoading, setAmazonLoading] = useState(false);
+
+  const [darazProducts, setDarazProducts] = useState([]);
+  const [darazPagination, setDarazPagination] = useState([]);
+  const [darazLoading, setDarazLoading] = useState(false);
+
+  useEffect(() => {
+    handleAmazonPagination("http://pricing.code7labs.co.uk/api/amazon/all");
+    handleDarazPagination("http://pricing.code7labs.co.uk/api/daraz/all");
+  }, []);
+
+  const handleAmazonPagination = async (url) => {
+    setAmazonLoading(true);
+    try {
+      const response = await axios.get(url);
+      if (response.status === 200) {
+        setAmazonProducts(response.data.data.data);
+        setAmazonPagination(response.data.data.links);
+        setAmazonLoading(false);
+      } else {
+        setAmazonLoading(false);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleDarazPagination = async (url) => {
+    setDarazLoading(true);
+    try {
+      const response = await axios.get(url);
+      if (response.status === 200) {
+        setDarazProducts(response.data.data.data);
+        setDarazPagination(response.data.data.links);
+        setDarazLoading(false);
+      } else {
+        setDarazLoading(false);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <>
-      {/* Hero - Featured Products (tabs) */}
-      <section className="position-relative bg-gradient pt-5 pt-lg-6 pb-7">
-        <div className="shape shape-bottom shape-curve bg-body">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 185.4">
-            <path
-              fill="currentColor"
-              d="M3000,0v185.4H0V0c496.4,115.6,996.4,173.4,1500,173.4S2503.6,115.6,3000,0z"
-            ></path>
-          </svg>
-        </div>
-        <div className="container pb-7">
-          <div className="row align-items-center pb-7">
-            <div className="col-lg-3">
-              <ul
-                className="nav nav-tabs media-tabs media-tabs-light justify-content-center justify-content-lg-start pb-3 mb-4 pb-lg-0 mb-lg-0"
-                role="tablist"
-              >
-                {featuredProducts.map((product) => (
-                  <li key={product.id} className="nav-item me-3 mb-3">
-                    <a
-                      className={`nav-link ${product.id === 1 && "active"}`}
-                      href={`#${product.link}`}
-                      data-bs-toggle="tab"
-                      role="tab"
-                    >
-                      <div className="d-flex align-items-center">
-                        <img
-                          className="flex-shrink-0 rounded"
-                          src={product.thumbnailImage}
-                          alt="Product"
-                          width="60"
-                        />
-                        <div className="w-100 ps-2 ms-1">
-                          <div className="d-flex justify-content-between align-items-center">
-                            <div className="fs-sm pe-1">{product.title}</div>
-                            <i className="ai-chevron-right lead ms-2 me-1"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-lg-9">
-              <div className="tab-content">
-                {featuredProducts.map((product) => (
-                  <div
-                    key={product.id}
-                    className={`tab-pane fade ${
-                      product.id === 1 && "show active"
-                    }`}
-                    id={product.link}
-                  >
-                    <div className="row align-items-center">
-                      <div className="col-lg-6 order-lg-2 pb-1 mb-4 pb-lg-0 mb-lg-0">
-                        <div className="mx-auto" style={{ maxWidth: 443 }}>
-                          <img src={product.heroImage} alt={product.alt} />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 order-lg-1 text-center text-lg-start">
-                        <div className="ps-xl-5">
-                          <h2 className="h1 text-light">{product.title}</h2>
-                          <p className="fs-lg text-light mb-lg-5">
-                            {product.description}
-                          </p>
-                          <button className="btn btn-translucent-light">
-                            Get now - {product.price}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Trending products (grid) */}
-      <section className="container pt-5 mt-5 mt-md-0 pt-md-6 pt-lg-7">
-        <h2 className="text-center mb-5">Trending products</h2>
-        <div className="row pb-1">
-          {products.map((product) => {
-            if (product.id > 8) return null;
-            return (
-              <div
-                key={product.id}
-                className="col-lg-3 col-md-4 col-sm-6 mb-grid-gutter"
-              >
-                <div className="card card-product card-hover">
-                  <button className="border-0 bg-transparent card-img-top">
-                    <img src={product.image} alt="Product thumbnail" />
-                  </button>
-                  <div className="card-body">
-                    <button className="border-0 bg-transparent meta-link fs-xs mb-1">
-                      {product.category}
-                    </button>
-                    <h3 className="fs-md mb-2">
-                      <button className="fw-medium border-0 bg-transparent meta-link">
-                        {product.title}
-                      </button>
-                    </h3>
-                    <span className="text-heading fw-semibold">
-                      {product.price}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      {/* Amazon Products (grid) */}
+      <Products
+        title="Amazon"
+        loading={amazonLoading}
+        products={amazonProducts}
+        pagination={amazonPagination}
+        handlePagination={handleAmazonPagination}
+      />
+      {/* Daraz Products (grid) */}
+      <Products
+        title="Daraz"
+        loading={darazLoading}
+        products={darazProducts}
+        pagination={darazPagination}
+        handlePagination={handleDarazPagination}
+      />
       {/* Brands */}
       <section className="container pt-5 mt-3 mt-md-0 pt-md-6 pt-lg-7 pb-md-4">
         <h2 className="mb-5 text-center">Shop by brand</h2>

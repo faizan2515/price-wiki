@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.pagination-min-height {
+  min-height: 3304px;
+}
+
+@media (min-width: 500px) {
+  .pagination-min-height {
+    min-height: 1654px;
+  }
+}
+
+@media (min-width: 768px){
+  .pagination-min-height {
+    min-height: 1324px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pagination-min-height {
+    min-height: 994px;
+  }
+}

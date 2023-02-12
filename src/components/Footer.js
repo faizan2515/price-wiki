@@ -3,85 +3,32 @@ function Footer() {
     <footer className="footer bg-dark">
       <div className="bg-darker pt-2">
         <div className="container py-sm-3">
-          <div className="row pb-4 mb-2 pt-5 py-md-5">
-            <div className="col-md-3 col-sm-6 mb-4">
-              <div className="d-flex align-items-center">
-                <i
-                  className="ai-truck text-primary"
-                  style={{ fontSize: "2.125rem" }}
-                ></i>
-                <div className="ps-3">
-                  <h6 className="fs-base text-light mb-1">
-                    Fast and free delivery
-                  </h6>
-                  <p className="mb-0 fs-xs text-light opacity-50">
-                    Free delivery for all orders over $200
-                  </p>
-                </div>
-              </div>
+          <h6 className="fs-base text-center text-sm-start text-light mb-3">
+            Follow us
+          </h6>
+          <div className="d-flex justify-content-sm-start  justify-content-center align-items-center gap-4 mb-3">
+            <div className="d-flex align-items-center gap-2">
+              <a className="btn-social bs-facebook bs-light" href="#">
+                <i className="ai-facebook"></i>
+              </a>
+              <a className="btn-social bs-twitter bs-light" href="#">
+                <i className="ai-twitter"></i>
+              </a>
+              <a className="btn-social bs-instagram bs-light" href="#">
+                <i className="ai-instagram"></i>
+              </a>
+              <a className="btn-social bs-youtube bs-light" href="#">
+                <i className="ai-youtube"></i>
+              </a>
             </div>
-            <div className="col-md-3 col-sm-6 mb-4">
-              <div className="d-flex align-items-center">
-                <i
-                  className="ai-refresh-cw text-primary"
-                  style={{ fontSize: "2.125rem" }}
-                ></i>
-                <div className="ps-3">
-                  <h6 className="fs-base text-light mb-1">
-                    Money back guarantee
-                  </h6>
-                  <p className="mb-0 fs-xs text-light opacity-50">
-                    We return money within 30 days
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3 col-sm-6 mb-4">
-              <div className="d-flex align-items-center">
-                <i
-                  className="ai-life-buoy text-primary"
-                  style={{ fontSize: "2.125rem" }}
-                ></i>
-                <div className="ps-3">
-                  <h6 className="fs-base text-light mb-1">
-                    24/7 customer support
-                  </h6>
-                  <p className="mb-0 fs-xs text-light opacity-50">
-                    Friendly 24/7 customer support
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3 col-sm-6 mb-4">
-              <div className="d-flex align-items-center">
-                <i
-                  className="ai-credit-card text-primary"
-                  style={{ fontSize: "2.125rem" }}
-                ></i>
-                <div className="ps-3">
-                  <h6 className="fs-base text-light mb-1">
-                    Secure online payment
-                  </h6>
-                  <p className="mb-0 fs-xs text-light opacity-50">
-                    We possess SSL / Secure сertificate
-                  </p>
-                </div>
-              </div>
-            </div>
+
+            <img src="img/logo/logo.jpeg" width="64" alt="logo" />
           </div>
-          <hr className="hr-light my-0 mb-5" />
-          <div className="d-sm-flex justify-content-between align-items-center pb-4 pb-sm-2">
-            <div className="order-sm-2 mb-4 mb-sm-3">
-              <img
-                src="img/footer/cards.png"
-                alt="Payment methods"
-                width="181"
-              />
-            </div>
-            <div className="order-sm-1 mb-3">
+          <div className="d-flex justify-content-center align-items-center pb-4 pb-sm-2">
+            <div className="mb-3">
               <p className="fs-ms mb-0">
                 <span className="text-light opacity-50 me-1">
-                  © All rights reserved.
+                  © All Rights Reserved by pricewiki
                 </span>
               </p>
             </div>
