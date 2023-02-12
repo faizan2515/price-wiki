@@ -8,18 +8,18 @@ function Footer() {
           </h6>
           <div className="d-flex justify-content-sm-start  justify-content-center align-items-center gap-4 mb-3">
             <div className="d-flex align-items-center gap-2">
-              <a className="btn-social bs-facebook bs-light" href="#">
+              <button className="btn-social bs-facebook bs-light">
                 <i className="ai-facebook"></i>
-              </a>
-              <a className="btn-social bs-twitter bs-light" href="#">
+              </button>
+              <button className="btn-social bs-twitter bs-light">
                 <i className="ai-twitter"></i>
-              </a>
-              <a className="btn-social bs-instagram bs-light" href="#">
+              </button>
+              <button className="btn-social bs-instagram bs-light">
                 <i className="ai-instagram"></i>
-              </a>
-              <a className="btn-social bs-youtube bs-light" href="#">
+              </button>
+              <button className="btn-social bs-youtube bs-light">
                 <i className="ai-youtube"></i>
-              </a>
+              </button>
             </div>
 
             <img src="img/logo/logo.jpeg" width="64" alt="logo" />
