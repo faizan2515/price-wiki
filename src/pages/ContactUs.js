@@ -12,7 +12,7 @@ function ContactUs() {
         <div
           className="jarallax-img"
           style={{
-            backgroundImage: "url(img/pages/contacts/page-title-bg.jpg)",
+            backgroundImage: "url(img/pages/page-title-bg.jpg)",
           }}
         ></div>
         <div className="shape shape-bottom shape-slant bg-body">

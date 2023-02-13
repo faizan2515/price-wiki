@@ -26,7 +26,7 @@ function AboutUs() {
                   top: 0,
                   left: "-45px",
                   width: "646px",
-                  backgroundImage: "url(img/pages/about/bg-shape.svg)",
+                  backgroundImage: "url(img/pages/bg-shape.svg)",
                 }}
               ></div>
               <div className="row g-0 mx-n2 pt-lg-4">

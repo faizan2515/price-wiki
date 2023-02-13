@@ -11,7 +11,7 @@ function Error() {
           <h1 className="mb-5">
             <img
               className="d-inline-block"
-              src="img/pages/404/404-text.svg"
+              src="img/pages/404-text.svg"
               alt="Error 404"
             />
             <span className="visually-hidden">Error 404</span>

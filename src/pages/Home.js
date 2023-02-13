@@ -29,6 +29,7 @@ function Home() {
         setAmazonLoading(false);
       }
     } catch (error) {
+      setAmazonLoading(false);
       console.error(error.message);
     }
   };
@@ -45,6 +46,7 @@ function Home() {
         setDarazLoading(false);
       }
     } catch (error) {
+      setDarazLoading(false);
       console.error(error.message);
     }
   };

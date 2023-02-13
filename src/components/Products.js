@@ -49,7 +49,7 @@ function Products({ title, loading, products, pagination, handlePagination }) {
                   <h3
                     className="fs-md mb-2 text-truncate"
                     style={{
-                      height: 19,
+                      height: 19.5,
                     }}
                   >
                     <a
