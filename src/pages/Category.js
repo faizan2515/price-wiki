@@ -9,6 +9,7 @@ function Category() {
   const { setCompareProducts } = useApp();
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const [pagination, setPagination] = useState([]);
 
   useEffect(() => {
     if (searchParams.get("name")) {
@@ -19,17 +20,29 @@ function Category() {
     // eslint-disable-next-line
   }, [searchParams]);
 
-  const handleCategory = async (value) => {
+  const handleCategory = async (value, page) => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `https://pricing.code7labs.co.uk/api/category/${value}`
-      );
-      if (response.status === 200) {
-        setProducts(response.data.Product ? response.data.Product : []);
-        setLoading(false);
+      if (page) {
+        const response = await axios.get(page);
+        if (response.status === 200) {
+          setProducts(response.data.Product.data);
+          setPagination(response.data.Product.links);
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
       } else {
-        setLoading(false);
+        const response = await axios.get(
+          `https://pricing.code7labs.co.uk/api/category/${value}`
+        );
+        if (response.status === 200) {
+          setProducts(response.data.Product.data);
+          setPagination(response.data.Product.links);
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
       }
     } catch (error) {
       setLoading(false);
@@ -44,7 +57,7 @@ function Category() {
       </h2>
 
       <div
-        className={`row ${
+        className={`row ${pagination.length && "pagination-min-height"} ${
           loading && "justify-content-center align-items-center"
         } pb-1`}
       >
@@ -145,6 +158,58 @@ function Category() {
             No Product Found
           </h3>
         )}
+      </div>
+      {/* Pagination */}
+      <div className="d-md-flex justify-content-end align-items-center pt-3 pb-2">
+        <nav className="mb-4">
+          <ul className="pagination overflow-auto">
+            {pagination.map((page, index) => {
+              if (page.label === "&laquo; Previous")
+                return (
+                  <li key={index} className="page-item">
+                    <button
+                      className="page-link"
+                      onClick={() => {
+                        handleCategory(searchParams.get("name"), page.url);
+                      }}
+                    >
+                      <i className="ai-chevron-left"></i>
+                    </button>
+                  </li>
+                );
+
+              if (page.label === "Next &raquo;")
+                return (
+                  <li key={index} className="page-item">
+                    <button
+                      className="page-link"
+                      onClick={() => {
+                        handleCategory(searchParams.get("name"), page.url);
+                      }}
+                    >
+                      <i className="ai-chevron-right"></i>
+                    </button>
+                  </li>
+                );
+
+              return (
+                <li
+                  key={index}
+                  className={`page-item ${page.active && "active"}`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => {
+                      handleCategory(searchParams.get("name"), page.url);
+                    }}
+                  >
+                    {page.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
     </section>
   );
