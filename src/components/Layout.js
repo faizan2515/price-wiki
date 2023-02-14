@@ -6,7 +6,7 @@ import Footer from "./Footer";
 function Layout() {
   return (
     <>
-      <main className="page-wrapper">
+      <main className="page-wrapper min-vh-100">
         <Header />
         <Outlet />
       </main>
