@@ -1,4 +1,3 @@
-import brands from "../data/brands";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Products from "../components/Products";
@@ -185,37 +184,6 @@ function Home() {
         handlePriceRange={handleDarazPriceRange}
         handlePagination={handleDarazPagination}
       />
-      {/* Brands */}
-      <section className="container pt-5 mt-3 mt-md-0 pt-md-6 pt-lg-7 pb-md-4">
-        <h2 className="mb-5 text-center">Shop by brand</h2>
-        <div className="row">
-          {brands.map((brand) => (
-            <div
-              key={brand.id}
-              className="col-md-3 col-sm-4 col-6 mb-grid-gutter"
-            >
-              <button className="w-100 card align-items-center border-0 shadow card-hover py-3 py-sm-4">
-                <div className="card-body px-1 py-0 text-center">
-                  <div className="swap-image">
-                    <img
-                      className="swap-to"
-                      src={brand.image}
-                      alt="Brand logo"
-                      width="150"
-                    />
-                    <img
-                      className="swap-from"
-                      src={brand.imageGray}
-                      alt="Brand logo"
-                      width="150"
-                    />
-                  </div>
-                </div>
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
     </>
   );
 }
