@@ -153,7 +153,10 @@ function Products({
                 size="small"
                 variant="contained"
                 onClick={() => {
-                  if (priceRange.from == 0 && priceRange.to == 0) {
+                  if (
+                    priceRange.from === String(0) &&
+                    priceRange.to === String(0)
+                  ) {
                     if (title === "Amazon") {
                       handlePagination(
                         "https://pricing.code7labs.co.uk/api/amazon/all"
