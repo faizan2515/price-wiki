@@ -1,5 +1,6 @@
 import { Button, Popover, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { useApp } from "../withAppProvider";
 
 function Products({
   title,
@@ -13,7 +14,9 @@ function Products({
   handlePriceRange,
   pagination,
   handlePagination,
+  handleCategory,
 }) {
+  const { setCompareProducts } = useApp();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -200,6 +203,11 @@ function Products({
                   height: 300,
                 }}
               >
+                {product.product_discount !== "null" && (
+                  <span className="badge badge-floating rounded-pill bg-danger">
+                    {product.product_discount}
+                  </span>
+                )}
                 <a
                   className="border-0 bg-transparent card-img-top h-100 p-2"
                   href={product.product_url}
@@ -217,9 +225,14 @@ function Products({
                   />
                 </a>
                 <div className="card-body">
-                  <p className="border-0 bg-transparent meta-link fs-xs mb-1 text-truncate">
-                    {product.product_brand}
-                  </p>
+                  <button
+                    className="border-0 bg-transparent meta-link fs-xs mb-1 text-truncate"
+                    onClick={() => {
+                      handleCategory(product.category);
+                    }}
+                  >
+                    {product.category !== "null" ? product.category : ""}
+                  </button>
                   <h3
                     className="fs-md mb-2 text-truncate"
                     style={{
@@ -235,14 +248,30 @@ function Products({
                       {product.product_title}
                     </a>
                   </h3>
-                  {product.product_price_old !== "null" && (
-                    <del className="fs-sm text-muted me-1 text-truncate">
-                      {product.product_price_old}
-                    </del>
-                  )}
-                  <span className="text-heading fw-semibold text-truncate">
-                    {product.product_price}
-                  </span>
+                </div>
+                <div className="card-footer">
+                  <div>
+                    {product.product_price_old !== "null" && (
+                      <del className="fs-sm text-muted me-1 text-truncate">
+                        {product.product_price_old}
+                      </del>
+                    )}
+                    <span className="text-heading fw-semibold text-truncate">
+                      {product.product_price}
+                    </span>
+                  </div>
+                  <button
+                    className="btn-wishlist text-primary bg-transparent border-0"
+                    onClick={() => {
+                      setCompareProducts((previous) => [
+                        ...previous,
+                        { ...product },
+                      ]);
+                    }}
+                  >
+                    <i className="ai-shuffle"></i>
+                    <span className="btn-tooltip">Compare</span>
+                  </button>
                 </div>
               </div>
             </div>

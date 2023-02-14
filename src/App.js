@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home, AboutUs, ContactUs, Error } from "./pages";
+import { Home, AboutUs, ContactUs, Error, Compare } from "./pages";
 import Layout from "./components/Layout";
+import withAppProvider from "./withAppProvider";
 
 function App() {
   return (
@@ -8,9 +9,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          {/* <Route path="shop" element={<Shop />} /> */}
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact-us" element={<ContactUs />} />
+          <Route path="compare" element={<Compare />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
@@ -18,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAppProvider(App);

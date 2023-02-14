@@ -90,6 +90,30 @@ function Home() {
     }
   };
 
+  const handleCategory = async (value) => {
+    setAmazonLoading(true);
+    setAmazonSearch("");
+    setAmazonPriceRange({
+      from: 0,
+      to: 0,
+    });
+    try {
+      const response = await axios.get(
+        `https://pricing.code7labs.co.uk/api/category/${value}`
+      );
+      if (response.status === 200) {
+        setAmazonProducts(response.data.Product ? response.data.Product : []);
+        setAmazonPagination([]);
+        setAmazonLoading(false);
+      } else {
+        setAmazonLoading(false);
+      }
+    } catch (error) {
+      setAmazonLoading(false);
+      console.error(error.message);
+    }
+  };
+
   const handleDarazPagination = async (url) => {
     setDarazLoading(true);
     try {
@@ -137,7 +161,7 @@ function Home() {
     setDarazSearch("");
     try {
       const response = await axios.get(
-        `https://pricing.code7labs.co.uk/api/filter/${value.from}/${value.to}`
+        `https://pricing.code7labs.co.uk/api/filter1/${value.from}/${value.to}`
       );
       if (response.status === 200) {
         setDarazProducts(
@@ -169,6 +193,7 @@ function Home() {
         setPriceRange={setAmazonPriceRange}
         handlePriceRange={handleAmazonPriceRange}
         handlePagination={handleAmazonPagination}
+        handleCategory={handleCategory}
       />
       {/* Daraz Products (grid) */}
       <Products
@@ -183,6 +208,7 @@ function Home() {
         setPriceRange={setDarazPriceRange}
         handlePriceRange={handleDarazPriceRange}
         handlePagination={handleDarazPagination}
+        handleCategory={handleCategory}
       />
     </>
   );

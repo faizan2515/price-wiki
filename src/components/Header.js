@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
+import { useApp } from "../withAppProvider";
 
 function Header() {
+  const { compareProducts } = useApp();
   return (
     <>
       <header className="header">
@@ -78,6 +80,28 @@ function Header() {
                       }
                     >
                       Contact Us
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink
+                      to="compare"
+                      className="nav-link"
+                      style={{ position: "relative" }}
+                    >
+                      <i className="ai-shuffle"></i>
+                      {compareProducts.length > 0 && (
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: "0.75rem",
+                            right: "0.75rem",
+                            width: "12px",
+                            height: "12px",
+                            borderRadius: "50%",
+                            backgroundColor: "var(--bs-primary)",
+                          }}
+                        ></span>
+                      )}
                     </NavLink>
                   </li>
                 </ul>
