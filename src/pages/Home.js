@@ -52,7 +52,7 @@ function Home() {
     });
     try {
       const response = await axios.get(
-        `http://pricing.code7labs.co.uk/api/search/${value}`
+        `https://pricing.code7labs.co.uk/api/search/${value}`
       );
       if (response.status === 200) {
         setAmazonProducts(
@@ -74,7 +74,7 @@ function Home() {
     setAmazonSearch("");
     try {
       const response = await axios.get(
-        `http://pricing.code7labs.co.uk/api/filter/${value.from}/${value.to}`
+        `https://pricing.code7labs.co.uk/api/filter/${value.from}/${value.to}`
       );
       if (response.status === 200) {
         setAmazonProducts(
@@ -116,7 +116,7 @@ function Home() {
     });
     try {
       const response = await axios.get(
-        `http://pricing.code7labs.co.uk/api/search/${value}`
+        `https://pricing.code7labs.co.uk/api/search/${value}`
       );
       if (response.status === 200) {
         setDarazProducts(
@@ -138,7 +138,7 @@ function Home() {
     setDarazSearch("");
     try {
       const response = await axios.get(
-        `http://pricing.code7labs.co.uk/api/filter/${value.from}/${value.to}`
+        `https://pricing.code7labs.co.uk/api/filter/${value.from}/${value.to}`
       );
       if (response.status === 200) {
         setDarazProducts(
