@@ -11,6 +11,7 @@ function Home() {
     from: 0,
     to: 0,
   });
+  const [amazonSort, setAmazonSort] = useState(false);
 
   const [darazProducts, setDarazProducts] = useState([]);
   const [darazPagination, setDarazPagination] = useState([]);
@@ -20,6 +21,7 @@ function Home() {
     from: 0,
     to: 0,
   });
+  const [darazSort, setDarazSort] = useState(false);
 
   useEffect(() => {
     handleAmazonPagination("https://pricing.code7labs.co.uk/api/amazon/all");
@@ -45,6 +47,7 @@ function Home() {
 
   const handleAmazonSearch = async (value) => {
     setAmazonLoading(true);
+    setAmazonSort(false);
     setAmazonPriceRange({
       from: 0,
       to: 0,
@@ -71,6 +74,7 @@ function Home() {
   const handleAmazonPriceRange = async (value) => {
     setAmazonLoading(true);
     setAmazonSearch("");
+    setAmazonSort(false);
     try {
       const response = await axios.get(
         `https://pricing.code7labs.co.uk/api/filter/${value.from}/${value.to}`
@@ -90,7 +94,7 @@ function Home() {
     }
   };
 
-  const handleCategory = async (value) => {
+  const handleAmazonSort = async () => {
     setAmazonLoading(true);
     setAmazonSearch("");
     setAmazonPriceRange({
@@ -99,10 +103,10 @@ function Home() {
     });
     try {
       const response = await axios.get(
-        `https://pricing.code7labs.co.uk/api/category/${value}`
+        "https://pricing.code7labs.co.uk/api/amazon/allDESC"
       );
       if (response.status === 200) {
-        setAmazonProducts(response.data.Product ? response.data.Product : []);
+        setAmazonProducts(response.data.data);
         setAmazonPagination([]);
         setAmazonLoading(false);
       } else {
@@ -133,6 +137,7 @@ function Home() {
 
   const handleDarazSearch = async (value) => {
     setDarazLoading(true);
+    setDarazSort(false);
     setDarazPriceRange({
       from: 0,
       to: 0,
@@ -159,6 +164,7 @@ function Home() {
   const handleDarazPriceRange = async (value) => {
     setDarazLoading(true);
     setDarazSearch("");
+    setDarazSort(false);
     try {
       const response = await axios.get(
         `https://pricing.code7labs.co.uk/api/filter1/${value.from}/${value.to}`
@@ -167,6 +173,30 @@ function Home() {
         setDarazProducts(
           response.data.DarazProducts ? response.data.DarazProducts : []
         );
+        setDarazPagination([]);
+        setDarazLoading(false);
+      } else {
+        setDarazLoading(false);
+      }
+    } catch (error) {
+      setDarazLoading(false);
+      console.error(error.message);
+    }
+  };
+
+  const handleDarazSort = async () => {
+    setDarazLoading(true);
+    setDarazSearch("");
+    setDarazPriceRange({
+      from: 0,
+      to: 0,
+    });
+    try {
+      const response = await axios.get(
+        "https://pricing.code7labs.co.uk/api/daraz/alldarazDESC"
+      );
+      if (response.status === 200) {
+        setDarazProducts(response.data.data);
         setDarazPagination([]);
         setDarazLoading(false);
       } else {
@@ -193,7 +223,9 @@ function Home() {
         setPriceRange={setAmazonPriceRange}
         handlePriceRange={handleAmazonPriceRange}
         handlePagination={handleAmazonPagination}
-        handleCategory={handleCategory}
+        sort={amazonSort}
+        setSort={setAmazonSort}
+        handleSort={handleAmazonSort}
       />
       {/* Daraz Products (grid) */}
       <Products
@@ -208,7 +240,9 @@ function Home() {
         setPriceRange={setDarazPriceRange}
         handlePriceRange={handleDarazPriceRange}
         handlePagination={handleDarazPagination}
-        handleCategory={handleCategory}
+        sort={darazSort}
+        setSort={setDarazSort}
+        handleSort={handleDarazSort}
       />
     </>
   );

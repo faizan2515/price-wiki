@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useApp } from "../withAppProvider";
 
 function Header() {
@@ -61,6 +61,34 @@ function Header() {
                     >
                       Home
                     </NavLink>
+                  </li>
+                  <li className="nav-item dropdown">
+                    <button
+                      className="nav-link dropdown-toggle bg-transparent border-0"
+                      data-bs-toggle="dropdown"
+                    >
+                      Category
+                    </button>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <Link
+                          to="category?name=cell%20phones"
+                          className="dropdown-item"
+                          replace
+                        >
+                          Cell Phones
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="category?name=computers"
+                          className="dropdown-item"
+                          replace
+                        >
+                          Computers
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
                   <li className="nav-item">
                     <NavLink

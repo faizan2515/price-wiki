@@ -1,4 +1,10 @@
-import { Button, Popover, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Popover,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { useApp } from "../withAppProvider";
 import { NavLink } from "react-router-dom";
@@ -15,7 +21,9 @@ function Products({
   handlePriceRange,
   pagination,
   handlePagination,
-  handleCategory,
+  sort,
+  setSort,
+  handleSort,
 }) {
   const { setCompareProducts } = useApp();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -178,6 +186,39 @@ function Products({
               >
                 Apply
               </Button>
+            </div>
+          </div>
+          <div className="px-4 py-2">
+            <Typography
+              style={{
+                fontSize: "1rem",
+                fontWeight: 500,
+                marginBottom: ".5rem",
+              }}
+            >
+              Sort by:
+            </Typography>
+            <div className="d-flex align-items-center gap-3">
+              Descending:
+              <Checkbox
+                checked={sort}
+                onChange={(e) => {
+                  setSort(e.target.checked);
+                  if (e.target.checked) {
+                    handleSort();
+                  } else {
+                    if (title === "Amazon") {
+                      handlePagination(
+                        "https://pricing.code7labs.co.uk/api/amazon/all"
+                      );
+                    } else {
+                      handlePagination(
+                        "https://pricing.code7labs.co.uk/api/daraz/all"
+                      );
+                    }
+                  }
+                }}
+              />
             </div>
           </div>
         </Popover>
