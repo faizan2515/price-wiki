@@ -106,8 +106,8 @@ function Home() {
         "https://pricing.code7labs.co.uk/api/amazon/allDESC"
       );
       if (response.status === 200) {
-        setAmazonProducts(response.data.data);
-        setAmazonPagination([]);
+        setAmazonProducts(response.data.data.data);
+        setAmazonPagination(response.data.data.links);
         setAmazonLoading(false);
       } else {
         setAmazonLoading(false);
@@ -196,8 +196,8 @@ function Home() {
         "https://pricing.code7labs.co.uk/api/daraz/alldarazDESC"
       );
       if (response.status === 200) {
-        setDarazProducts(response.data.data);
-        setDarazPagination([]);
+        setDarazProducts(response.data.data.data);
+        setDarazPagination(response.data.data.links);
         setDarazLoading(false);
       } else {
         setDarazLoading(false);
