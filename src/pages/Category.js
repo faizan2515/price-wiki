@@ -16,6 +16,7 @@ function Category() {
     } else {
       navigate("/");
     }
+    // eslint-disable-next-line
   }, [searchParams]);
 
   const handleCategory = async (value) => {
