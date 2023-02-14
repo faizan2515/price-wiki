@@ -1,7 +1,19 @@
 import { Button, Popover, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
-function Products({ title, loading, products, pagination, handlePagination }) {
+function Products({
+  title,
+  loading,
+  products,
+  search,
+  setSearch,
+  handleSearch,
+  priceRange,
+  setPriceRange,
+  handlePriceRange,
+  pagination,
+  handlePagination,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -31,6 +43,22 @@ function Products({ title, loading, products, pagination, handlePagination }) {
           <input
             className="form-control form-control-xl navbar-search-field border-0"
             type="text"
+            value={search}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setSearch(e.target.value);
+                handlePagination(
+                  "https://pricing.code7labs.co.uk/api/amazon/all"
+                );
+              } else {
+                setSearch(e.target.value);
+              }
+            }}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                handleSearch(search);
+              }
+            }}
             placeholder={`Search ${title} products...`}
           />
         </div>
@@ -68,6 +96,21 @@ function Products({ title, loading, products, pagination, handlePagination }) {
             </Typography>
             <div className="d-flex gap-3">
               <TextField
+                value={priceRange.from}
+                onChange={(e) => {
+                  if (e.target.value < 0) {
+                    setPriceRange((previous) => ({
+                      ...previous,
+                      from: 0,
+                    }));
+
+                    return;
+                  }
+                  setPriceRange((previous) => ({
+                    ...previous,
+                    from: e.target.value,
+                  }));
+                }}
                 label="From"
                 variant="outlined"
                 type="number"
@@ -77,6 +120,21 @@ function Products({ title, loading, products, pagination, handlePagination }) {
                 }}
               />
               <TextField
+                value={priceRange.to}
+                onChange={(e) => {
+                  if (e.target.value < 0) {
+                    setPriceRange((previous) => ({
+                      ...previous,
+                      to: 0,
+                    }));
+
+                    return;
+                  }
+                  setPriceRange((previous) => ({
+                    ...previous,
+                    to: e.target.value,
+                  }));
+                }}
                 label="To"
                 variant="outlined"
                 type="number"
@@ -88,6 +146,15 @@ function Products({ title, loading, products, pagination, handlePagination }) {
               <Button
                 size="small"
                 variant="contained"
+                onClick={() => {
+                  if (priceRange.from === priceRange.to) {
+                    handlePagination(
+                      "https://pricing.code7labs.co.uk/api/amazon/all"
+                    );
+                  } else {
+                    handlePriceRange(priceRange);
+                  }
+                }}
                 style={{ backgroundColor: "var(--bs-primary)" }}
               >
                 Apply
@@ -97,7 +164,7 @@ function Products({ title, loading, products, pagination, handlePagination }) {
         </Popover>
       </div>
       <div
-        className={`row pagination-min-height ${
+        className={`row ${pagination.length && "pagination-min-height"} ${
           loading && "justify-content-center align-items-center"
         } pb-1`}
       >
@@ -105,7 +172,7 @@ function Products({ title, loading, products, pagination, handlePagination }) {
           <div className="spinner-grow" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : (
+        ) : products.length > 0 ? (
           products.map((product) => (
             <div
               key={product.id}
@@ -165,6 +232,15 @@ function Products({ title, loading, products, pagination, handlePagination }) {
               </div>
             </div>
           ))
+        ) : (
+          <h3
+            className="text-center"
+            style={{
+              color: "rgb(170, 170, 170)",
+            }}
+          >
+            No Product Found
+          </h3>
         )}
       </div>
 
