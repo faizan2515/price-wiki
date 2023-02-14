@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useApp } from "../withAppProvider";
 
 function Category() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { setCompareProducts } = useApp();
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    handleCategory(searchParams.get("name"));
+    if (searchParams.get("name")) {
+      handleCategory(searchParams.get("name"));
+    } else {
+      navigate("/");
+    }
   }, [searchParams]);
 
   const handleCategory = async (value) => {
@@ -34,7 +39,7 @@ function Category() {
   return (
     <section className="container pt-5">
       <h2 className="mb-5">
-        Category: {searchParams.get("name").toUpperCase()}
+        Category: {searchParams.get("name")?.toUpperCase()}
       </h2>
 
       <div
