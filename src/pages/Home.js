@@ -139,7 +139,7 @@ function Home() {
     });
     try {
       const response = await axios.get(
-        `https://pricing.code7labs.co.uk/api/search/${value}`
+        `https://pricing.code7labs.co.uk/api/searchdaraz/${value}`
       );
       if (response.status === 200) {
         setDarazProducts(
