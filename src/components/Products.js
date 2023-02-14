@@ -47,9 +47,15 @@ function Products({
             onChange={(e) => {
               if (e.target.value === "") {
                 setSearch(e.target.value);
-                handlePagination(
-                  "https://pricing.code7labs.co.uk/api/amazon/all"
-                );
+                if (title === "Amazon") {
+                  handlePagination(
+                    "https://pricing.code7labs.co.uk/api/amazon/all"
+                  );
+                } else {
+                  handlePagination(
+                    "https://pricing.code7labs.co.uk/api/daraz/all"
+                  );
+                }
               } else {
                 setSearch(e.target.value);
               }
@@ -148,9 +154,15 @@ function Products({
                 variant="contained"
                 onClick={() => {
                   if (priceRange.from === priceRange.to) {
-                    handlePagination(
-                      "https://pricing.code7labs.co.uk/api/amazon/all"
-                    );
+                    if (title === "Amazon") {
+                      handlePagination(
+                        "https://pricing.code7labs.co.uk/api/amazon/all"
+                      );
+                    } else {
+                      handlePagination(
+                        "https://pricing.code7labs.co.uk/api/daraz/all"
+                      );
+                    }
                   } else {
                     handlePriceRange(priceRange);
                   }
