@@ -1,6 +1,7 @@
 import { Button, Popover, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useApp } from "../withAppProvider";
+import { NavLink } from "react-router-dom";
 
 function Products({
   title,
@@ -225,14 +226,14 @@ function Products({
                   />
                 </a>
                 <div className="card-body">
-                  <button
-                    className="border-0 bg-transparent meta-link fs-xs mb-1 text-truncate"
-                    onClick={() => {
-                      handleCategory(product.category);
-                    }}
-                  >
-                    {product.category !== "null" ? product.category : ""}
-                  </button>
+                  {product.category !== "null" && (
+                    <NavLink
+                      to={`category?name=${product.category?.toLowerCase()}`}
+                      className="border-0 bg-transparent meta-link fs-xs mb-1 text-truncate"
+                    >
+                      {product.category}
+                    </NavLink>
+                  )}
                   <h3
                     className="fs-md mb-2 text-truncate"
                     style={{
