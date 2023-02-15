@@ -26,6 +26,7 @@ function Home() {
 
   useEffect(() => {
     handlePagination();
+    // eslint-disable-next-line
   }, []);
 
   const handleAmazonPagination = async (marketplace, page) => {
