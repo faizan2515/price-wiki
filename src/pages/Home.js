@@ -6,7 +6,6 @@ function Home() {
   const [amazonProducts, setAmazonProducts] = useState([]);
   const [amazonPagination, setAmazonPagination] = useState([]);
   const [amazonLoading, setAmazonLoading] = useState(false);
-  const [amazonSearch, setAmazonSearch] = useState("");
   const [amazonPriceRange, setAmazonPriceRange] = useState({
     from: 0,
     to: 0,
@@ -16,12 +15,13 @@ function Home() {
   const [darazProducts, setDarazProducts] = useState([]);
   const [darazPagination, setDarazPagination] = useState([]);
   const [darazLoading, setDarazLoading] = useState(false);
-  const [darazSearch, setDarazSearch] = useState("");
   const [darazPriceRange, setDarazPriceRange] = useState({
     from: 0,
     to: 0,
   });
   const [darazSort, setDarazSort] = useState(false);
+
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     handleAmazonPagination("https://pricing.code7labs.co.uk/api/amazon/all");
@@ -73,7 +73,7 @@ function Home() {
 
   const handleAmazonPriceRange = async (value) => {
     setAmazonLoading(true);
-    setAmazonSearch("");
+    setSearch("");
     setAmazonSort(false);
     try {
       const response = await axios.get(
@@ -96,7 +96,7 @@ function Home() {
 
   const handleAmazonSort = async () => {
     setAmazonLoading(true);
-    setAmazonSearch("");
+    setSearch("");
     setAmazonPriceRange({
       from: 0,
       to: 0,
@@ -163,7 +163,7 @@ function Home() {
 
   const handleDarazPriceRange = async (value) => {
     setDarazLoading(true);
-    setDarazSearch("");
+    setSearch("");
     setDarazSort(false);
     try {
       const response = await axios.get(
@@ -186,7 +186,7 @@ function Home() {
 
   const handleDarazSort = async () => {
     setDarazLoading(true);
-    setDarazSearch("");
+    setSearch("");
     setDarazPriceRange({
       from: 0,
       to: 0,
@@ -208,17 +208,56 @@ function Home() {
     }
   };
 
+  const handleSearch = async () => {
+    handleDarazSearch(search);
+    handleAmazonSearch(search);
+  };
+
   return (
     <>
+      <section className="container pt-5">
+        <div
+          className="d-flex flex-nowrap align-items-center"
+          style={{
+            border: "1px solid #d9d9d9",
+            borderRadius: 27,
+            width: "100%",
+            padding: "4px 20px",
+          }}
+        >
+          <i className="ai-search fs-xl"></i>
+          <input
+            className="form-control form-control-xl navbar-search-field border-0"
+            type="text"
+            value={search}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setSearch(e.target.value);
+                handleAmazonPagination(
+                  "https://pricing.code7labs.co.uk/api/amazon/all"
+                );
+                handleDarazPagination(
+                  "https://pricing.code7labs.co.uk/api/daraz/all"
+                );
+              } else {
+                setSearch(e.target.value);
+              }
+            }}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                handleSearch(search);
+              }
+            }}
+            placeholder="Search products..."
+          />
+        </div>
+      </section>
       {/* Amazon Products (grid) */}
       <Products
         title="Amazon"
         loading={amazonLoading}
         products={amazonProducts}
         pagination={amazonPagination}
-        search={amazonSearch}
-        setSearch={setAmazonSearch}
-        handleSearch={handleAmazonSearch}
         priceRange={amazonPriceRange}
         setPriceRange={setAmazonPriceRange}
         handlePriceRange={handleAmazonPriceRange}
@@ -233,9 +272,6 @@ function Home() {
         loading={darazLoading}
         products={darazProducts}
         pagination={darazPagination}
-        search={darazSearch}
-        setSearch={setDarazSearch}
-        handleSearch={handleDarazSearch}
         priceRange={darazPriceRange}
         setPriceRange={setDarazPriceRange}
         handlePriceRange={handleDarazPriceRange}

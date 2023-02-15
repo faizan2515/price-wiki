@@ -1,11 +1,10 @@
 import {
   Button,
   Checkbox,
-  Popover,
+  FormControlLabel,
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
 import { useApp } from "../withAppProvider";
 import { NavLink } from "react-router-dom";
 
@@ -13,9 +12,6 @@ function Products({
   title,
   loading,
   products,
-  search,
-  setSearch,
-  handleSearch,
   priceRange,
   setPriceRange,
   handlePriceRange,
@@ -26,202 +22,133 @@ function Products({
   handleSort,
 }) {
   const { setCompareProducts } = useApp();
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
 
   return (
     <section className="container pt-5">
       <h2 className="text-center mb-5">{title} Products</h2>
       <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-5 px-3 mb-5">
-        <div
-          className="d-flex flex-nowrap align-items-center"
-          style={{
-            border: "1px solid #d9d9d9",
-            borderRadius: 27,
-            width: 320,
-            padding: "4px 20px",
-          }}
-        >
-          <i className="ai-search fs-xl"></i>
-          <input
-            className="form-control form-control-xl navbar-search-field border-0"
-            type="text"
-            value={search}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setSearch(e.target.value);
-                if (title === "Amazon") {
-                  handlePagination(
-                    "https://pricing.code7labs.co.uk/api/amazon/all"
-                  );
-                } else {
-                  handlePagination(
-                    "https://pricing.code7labs.co.uk/api/daraz/all"
-                  );
-                }
-              } else {
-                setSearch(e.target.value);
-              }
+        <div className="d-flex align-items-center gap-3 px-4 py-2">
+          <Typography
+            style={{
+              fontSize: "1.25rem",
+              fontWeight: 500,
             }}
-            onKeyUp={(e) => {
-              if (e.key === "Enter") {
-                handleSearch(search);
+          >
+            Sort by:
+          </Typography>
+          <div className="d-flex align-items-center gap-3">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sort}
+                  onChange={(e) => {
+                    setSort(e.target.checked);
+                    if (e.target.checked) {
+                      handleSort();
+                    } else {
+                      if (title === "Amazon") {
+                        handlePagination(
+                          "https://pricing.code7labs.co.uk/api/amazon/all"
+                        );
+                      } else {
+                        handlePagination(
+                          "https://pricing.code7labs.co.uk/api/daraz/all"
+                        );
+                      }
+                    }
+                  }}
+                />
               }
-            }}
-            placeholder={`Search ${title} products...`}
-          />
+              label="Descending"
+            />
+          </div>
         </div>
-        <Button
-          variant="contained"
-          onClick={handleClick}
-          style={{
-            backgroundColor: "var(--bs-primary)",
-          }}
-        >
-          Filter
-        </Button>
-        <Popover
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <div className="px-4 py-2">
-            <Typography
-              style={{
-                fontSize: "1rem",
-                fontWeight: 500,
-                marginBottom: ".5rem",
-              }}
-            >
-              Price Range:
-            </Typography>
-            <div className="d-flex gap-3">
-              <TextField
-                value={priceRange.from}
-                onChange={(e) => {
-                  if (e.target.value < 0) {
-                    setPriceRange((previous) => ({
-                      ...previous,
-                      from: 0,
-                    }));
-
-                    return;
-                  }
+        <div className="px-4 py-2">
+          <Typography
+            style={{
+              fontSize: "1rem",
+              fontWeight: 500,
+              marginBottom: ".5rem",
+            }}
+          >
+            Price Range:
+          </Typography>
+          <div className="d-flex gap-3">
+            <TextField
+              value={priceRange.from}
+              onChange={(e) => {
+                if (e.target.value < 0) {
                   setPriceRange((previous) => ({
                     ...previous,
-                    from: e.target.value,
+                    from: 0,
                   }));
-                }}
-                label="From"
-                variant="outlined"
-                type="number"
-                size="small"
-                style={{
-                  width: 120,
-                }}
-              />
-              <TextField
-                value={priceRange.to}
-                onChange={(e) => {
-                  if (e.target.value < 0) {
-                    setPriceRange((previous) => ({
-                      ...previous,
-                      to: 0,
-                    }));
 
-                    return;
-                  }
+                  return;
+                }
+                setPriceRange((previous) => ({
+                  ...previous,
+                  from: e.target.value,
+                }));
+              }}
+              label="From"
+              variant="outlined"
+              type="number"
+              size="small"
+              style={{
+                width: 120,
+              }}
+            />
+            <TextField
+              value={priceRange.to}
+              onChange={(e) => {
+                if (e.target.value < 0) {
                   setPriceRange((previous) => ({
                     ...previous,
-                    to: e.target.value,
+                    to: 0,
                   }));
-                }}
-                label="To"
-                variant="outlined"
-                type="number"
-                size="small"
-                style={{
-                  width: 120,
-                }}
-              />
-              <Button
-                size="small"
-                variant="contained"
-                onClick={() => {
-                  if (
-                    Number(priceRange.from) === 0 &&
-                    Number(priceRange.to) === 0
-                  ) {
-                    if (title === "Amazon") {
-                      handlePagination(
-                        "https://pricing.code7labs.co.uk/api/amazon/all"
-                      );
-                    } else {
-                      handlePagination(
-                        "https://pricing.code7labs.co.uk/api/daraz/all"
-                      );
-                    }
-                  } else {
-                    handlePriceRange(priceRange);
-                  }
-                }}
-                style={{ backgroundColor: "var(--bs-primary)" }}
-              >
-                Apply
-              </Button>
-            </div>
-          </div>
-          <div className="px-4 py-2">
-            <Typography
-              style={{
-                fontSize: "1rem",
-                fontWeight: 500,
-                marginBottom: ".5rem",
+
+                  return;
+                }
+                setPriceRange((previous) => ({
+                  ...previous,
+                  to: e.target.value,
+                }));
               }}
-            >
-              Sort by:
-            </Typography>
-            <div className="d-flex align-items-center gap-3">
-              Descending:
-              <Checkbox
-                checked={sort}
-                onChange={(e) => {
-                  setSort(e.target.checked);
-                  if (e.target.checked) {
-                    handleSort();
+              label="To"
+              variant="outlined"
+              type="number"
+              size="small"
+              style={{
+                width: 120,
+              }}
+            />
+            <Button
+              size="small"
+              variant="contained"
+              onClick={() => {
+                if (
+                  Number(priceRange.from) === 0 &&
+                  Number(priceRange.to) === 0
+                ) {
+                  if (title === "Amazon") {
+                    handlePagination(
+                      "https://pricing.code7labs.co.uk/api/amazon/all"
+                    );
                   } else {
-                    if (title === "Amazon") {
-                      handlePagination(
-                        "https://pricing.code7labs.co.uk/api/amazon/all"
-                      );
-                    } else {
-                      handlePagination(
-                        "https://pricing.code7labs.co.uk/api/daraz/all"
-                      );
-                    }
+                    handlePagination(
+                      "https://pricing.code7labs.co.uk/api/daraz/all"
+                    );
                   }
-                }}
-              />
-            </div>
+                } else {
+                  handlePriceRange(priceRange);
+                }
+              }}
+              style={{ backgroundColor: "var(--bs-primary)" }}
+            >
+              Apply
+            </Button>
           </div>
-        </Popover>
+        </div>
       </div>
       <div
         className={`row ${pagination.length && "pagination-min-height"} ${
