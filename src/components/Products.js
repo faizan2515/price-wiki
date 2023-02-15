@@ -8,25 +8,14 @@ import {
 import { useApp } from "../withAppProvider";
 import { NavLink } from "react-router-dom";
 
-function Products({
-  title,
-  loading,
-  products,
-  priceRange,
-  setPriceRange,
-  handlePriceRange,
-  pagination,
-  handlePagination,
-  sort,
-  setSort,
-  handleSort,
-}) {
+function Products({ loading, products, pagination, handlePagination }) {
   const { setCompareProducts } = useApp();
 
   return (
-    <section className="container pt-5">
-      <h2 className="text-center mb-5">{title} Products</h2>
-      <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-5 px-3 mb-5">
+    <>
+      {/* // <section className="container pt-5"> */}
+      {/* <h2 className="text-center mb-5">{title} Products</h2> */}
+      {/* <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-5 px-3 mb-5">
         <div className="d-flex align-items-center gap-3 px-4 py-2">
           <Typography
             style={{
@@ -149,7 +138,7 @@ function Products({
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div
         className={`row ${pagination.length && "pagination-min-height"} ${
           loading && "justify-content-center align-items-center"
@@ -309,7 +298,8 @@ function Products({
           </ul>
         </nav>
       </div>
-    </section>
+    </>
+    // </section>
   );
 }
 

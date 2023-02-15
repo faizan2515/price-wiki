@@ -7,10 +7,7 @@ function Header() {
     <>
       <header className="header">
         <div
-          className="navbar navbar-expand-lg navbar-light navbar-shadow navbar-sticky"
-          style={{
-            backgroundColor: "#6b96f4",
-          }}
+          className="navbar navbar-expand-lg navbar-light bg-light navbar-shadow navbar-sticky"
           data-scroll-header
           data-fixed-element
         >
@@ -59,7 +56,7 @@ function Header() {
                     <NavLink
                       to="/"
                       className={({ isActive }) =>
-                        isActive ? "nav-link active" : "nav-link text-white"
+                        isActive ? "nav-link active" : "nav-link"
                       }
                     >
                       Home
@@ -67,7 +64,7 @@ function Header() {
                   </li>
                   <li className="nav-item dropdown">
                     <button
-                      className="nav-link text-white dropdown-toggle bg-transparent border-0"
+                      className="nav-link dropdown-toggle bg-transparent border-0"
                       data-bs-toggle="dropdown"
                     >
                       Category
@@ -97,7 +94,7 @@ function Header() {
                     <NavLink
                       to="about-us"
                       className={({ isActive }) =>
-                        isActive ? "nav-link active" : "nav-link text-white"
+                        isActive ? "nav-link active" : "nav-link"
                       }
                     >
                       About Us
@@ -107,7 +104,7 @@ function Header() {
                     <NavLink
                       to="contact-us"
                       className={({ isActive }) =>
-                        isActive ? "nav-link active" : "nav-link text-white"
+                        isActive ? "nav-link active" : "nav-link"
                       }
                     >
                       Contact Us
@@ -116,7 +113,7 @@ function Header() {
                   <li className="nav-item">
                     <NavLink
                       to="compare"
-                      className="nav-link text-white"
+                      className="nav-link"
                       style={{ position: "relative" }}
                     >
                       <i className="ai-shuffle"></i>
