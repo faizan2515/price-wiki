@@ -47,7 +47,7 @@ function Compare() {
           }}
           onClick={handleBestPrice}
         >
-          Best Price
+          Best Option
         </Button>
       </div>
       <div className="row pb-1">
