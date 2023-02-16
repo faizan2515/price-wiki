@@ -1,7 +1,41 @@
+import { useEffect, useState } from "react";
 import { useApp } from "../withAppProvider";
 
 function Compare() {
   const { compareProducts } = useApp();
+  const [bestPrice, setBestPrice] = useState({
+    id: null,
+    price: Infinity,
+  });
+
+  useEffect(() => {
+    if (compareProducts.length > 0) {
+      compareProducts.forEach((product, index) => {
+        setBestPrice((previous) => {
+          if (
+            previous.price > parseFloat(product.product_price.replace("$", ""))
+          ) {
+            return {
+              id: index,
+              price: parseFloat(product.product_price.replace("$", "")),
+            };
+          }
+          if (
+            previous.price >
+            parseFloat(product.product_price.replace("Rs. ", ""))
+          ) {
+            return {
+              id: index,
+              price: parseFloat(product.product_price.replace("Rs. ", "")),
+            };
+          }
+          return previous;
+        });
+      });
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <section className="container pt-5">
       <h2 className="text-center mb-5">Compare Products</h2>
@@ -12,16 +46,15 @@ function Compare() {
               key={index}
               className="col-lg-3 col-md-4 col-sm-6 mb-grid-gutter"
             >
-              <div
-                className="card card-product card-hover overflow-hidden"
-                // style={{
-                //   width: 240,
-                //   height: 300,
-                // }}
-              >
+              <div className="card card-product card-hover overflow-hidden">
                 {product.product_discount !== "null" && (
                   <span className="badge badge-floating rounded-pill bg-danger">
                     {product.product_discount}
+                  </span>
+                )}
+                {bestPrice !== null && bestPrice.id === index && (
+                  <span className="badge badge-floating bg-warning">
+                    Best Price
                   </span>
                 )}
                 <a
