@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useApp } from "../withAppProvider";
+import { Button } from "@mui/material";
 
 function Compare() {
   const { compareProducts } = useApp();
@@ -8,7 +9,7 @@ function Compare() {
     price: Infinity,
   });
 
-  useEffect(() => {
+  const handleBestPrice = () => {
     if (compareProducts.length > 0) {
       compareProducts.forEach((product, index) => {
         setBestPrice((previous) => {
@@ -33,12 +34,22 @@ function Compare() {
         });
       });
     }
-    // eslint-disable-next-line
-  }, []);
+  };
 
   return (
     <section className="container pt-5">
-      <h2 className="text-center mb-5">Compare Products</h2>
+      <div className="d-flex justify-content-between align-items-center mb-5">
+        <h2 className="text-center">Compare Products</h2>
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor: "var(--bs-primary)",
+          }}
+          onClick={handleBestPrice}
+        >
+          Best Price
+        </Button>
+      </div>
       <div className="row pb-1">
         {compareProducts.length > 0 ? (
           compareProducts.map((product, index) => (
@@ -54,7 +65,7 @@ function Compare() {
                 )}
                 {bestPrice !== null && bestPrice.id === index && (
                   <span className="badge badge-floating bg-warning">
-                    Best Price
+                    Best Option
                   </span>
                 )}
                 <a
