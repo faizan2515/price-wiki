@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApp } from "../withAppProvider";
 import { Button } from "@mui/material";
 
